@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Ade WooCommerce States
- * Plugin URI: https://omukiguy.com
+ * Plugin URI: https://adeleyeayodeji.com
  * Author: Adeleye Ayodeji
  * Author URI: https://adeleyeayodeji.com
  * Description: Add shipping zones 3 levels deep for woocommerce.
