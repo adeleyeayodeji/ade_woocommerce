@@ -1,29 +1,28 @@
 <?php
 /**
- * Plugin Name: Ade WooCommerce States
- * Plugin URI: https://adeleyeayodeji.com
+ * Plugin Name: Ade Custom Shipping
+ * Plugin URI: https://wordpress.org/plugins/ade_custom_shipping/
  * Author: Adeleye Ayodeji
  * Author URI: https://adeleyeayodeji.com
- * Description: Add shipping zones 3 levels deep for woocommerce.
- * Version: 0.1.0
+ * Description: Add shipping zones 3 levels deep for ecommerce.
+ * Version: 1.0
  * License: GPL2
  * License URL: http://www.gnu.org/licenses/gpl-2.0.txt
- * text-domain: 2lsw
 */
 
 // add basic plugin security.
 defined( 'ABSPATH' ) || exit;
 
-if ( ! defined( 'ADE_WOOCOOMERCE_PLGUN_FILE' ) ) {
-	define( 'ADE_WOOCOOMERCE_PLGUN_FILE', __FILE__ );
+if ( ! defined( 'ADE_CUSTOM_PLGUN_FILE' ) ) {
+	define( 'ADE_CUSTOM_PLGUN_FILE', __FILE__ );
 }
 
-add_filter( 'woocommerce_states', 'ade_wooceommerce' );
+add_filter( 'woocommerce_states', 'ade_custom_shipping' );
 
-$json = json_decode(file_get_contents(plugin_dir_path( ADE_WOOCOOMERCE_PLGUN_FILE ) . 'inc/all_cities.json'));
+$json = json_decode(file_get_contents(plugin_dir_path( ADE_CUSTOM_PLGUN_FILE ) . 'inc/all_cities.json'));
 
 
-function ade_wooceommerce( $states ) {
+function ade_custom_shipping( $states ) {
     global $json;
 
     $map = array();
