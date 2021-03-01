@@ -6,7 +6,7 @@ Author: Adeleye Ayodeji
 Requires at least: 3.6.0
 Requires PHP: 5.5
 Tested up to: 5.5
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,7 +23,7 @@ Integrate Ade Custom Shipping to your woocommerce website.
 
 == Installation ==
 
-1. Upload `ade-woocommerce` directory to the `/wp-content/plugins/` directory
+1. Upload `ade-custom-shipping` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. And everything works perfectly within woocomerce
 
@@ -32,6 +32,9 @@ Integrate Ade Custom Shipping to your woocommerce website.
 none
 
 == Changelog ==
+
+= 1.10 =
+Added Ghana Regions and LGA.
 
 = 1.00 =
 Initial release.
