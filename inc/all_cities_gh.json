@@ -1,0 +1,92 @@
+[
+  {
+    "region": "Greater Accra Region",
+    "state": "Tema",
+    "lgas": ["Community 1", "Community 5"]
+  },
+  {
+    "region": "Greater Accra Region",
+    "state": "Ashaiman",
+    "lgas": ["Valco flat", "Newtown"]
+  },
+  {
+    "region": "Volta Region",
+    "state": "HO",
+    "lgas": ["Dededo", "Abutia-Kloe"]
+  },
+  {
+    "region": "Ahafo",
+    "state": "",
+    "lgas": []
+  },
+  {
+    "region": "Ashanti",
+    "state": "",
+    "lgas": []
+  },
+  {
+    "region": "Brong-Ahafo",
+    "state": "",
+    "lgas": []
+  },
+  {
+    "region": "Bono",
+    "state": "",
+    "lgas": []
+  },
+  {
+    "region": "Bono East",
+    "state": "",
+    "lgas": []
+  },
+  {
+    "region": "Central",
+    "state": "",
+    "lgas": []
+  },
+  {
+    "region": "Eastern",
+    "state": "",
+    "lgas": []
+  },
+  {
+    "region": "North East",
+    "state": "",
+    "lgas": []
+  },
+  {
+    "region": "Northern",
+    "state": "",
+    "lgas": []
+  },
+  {
+    "region": "Oti",
+    "state": "",
+    "lgas": []
+  },
+  {
+    "region": "Savannah",
+    "state": "",
+    "lgas": []
+  },
+  {
+    "region": "Upper East",
+    "state": "",
+    "lgas": []
+  },
+  {
+    "region": "Upper West",
+    "state": "",
+    "lgas": []
+  },
+  {
+    "region": "Western",
+    "state": "",
+    "lgas": []
+  },
+  {
+    "region": "Western North",
+    "state": "",
+    "lgas": []
+  }
+]
