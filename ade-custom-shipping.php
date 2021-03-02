@@ -31,7 +31,7 @@ function ade_custom_shipping( $states ) {
 
     foreach ( $json as $city) {
         for ($i=0; $i < count($city->lgas); $i++) { 
-            $map[] = $city->lgas[$i] . ', '.$city->state;
+            $map[strtolower(str_replace(" ", "", $city->lgas[$i]))] = $city->lgas[$i] . ', '.$city->state;
         }
     }
 
@@ -47,10 +47,10 @@ function ade_custom_shipping_gh( $states ) {
 
     foreach ( $json_gh as $city) {
         if(count($city->lgas) == 0){
-            $map[] = $city->region;
+            $map[strtolower(str_replace(" ", "", $city->region))] = $city->region;
         }else{
             for ($i=0; $i < count($city->lgas); $i++) { 
-                $map[] = $city->lgas[$i] . ', '.$city->state. ', '.$city->region;
+                $map[strtolower(str_replace(" ", "", $city->lgas[$i]))] = $city->lgas[$i] . ', '.$city->state. ', '.$city->region;
             }
         }
     }
