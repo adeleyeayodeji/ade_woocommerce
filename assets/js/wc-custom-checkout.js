@@ -1,3 +1,48 @@
+/**
+ * Ade Custom Shipping | adesetWooInputValues
+ * @package Ade Custom Shipping
+ */
+function adesetWooInputValues() {
+  jQuery(document).ready(function ($) {
+    //get the state
+    var state_select = $('select[name="billing_state"]');
+    //if not exist
+    if (!state_select.length) {
+      return;
+    }
+    //get selected option
+    var selected_option = state_select.find("option:selected").val();
+    //check if selected_option is not empty
+    if (selected_option == "") {
+      //do nothing
+      return;
+    }
+    //set value to input if exists
+    if (document.querySelector("#billing_city")) {
+      document.querySelector("#billing_city").value = selected_option;
+    }
+    //check if billing_city exists
+    if (
+      document.querySelector('form[name="checkout"] input[name="billing_city"]')
+    ) {
+      document.querySelector(
+        'form[name="checkout"] input[name="billing_city"]'
+      ).value = selected_option;
+    }
+    //state
+    if (
+      document.querySelector(
+        'form[name="checkout"] input[name="billing_state"]'
+      )
+    ) {
+      document.querySelector(
+        'form[name="checkout"] input[name="billing_state"]'
+      ).value = selected_option;
+      //custom
+    }
+  });
+}
+
 function adesetValue2(elem) {
   jQuery(document).ready(function ($) {
     var lga = $(elem).val();
@@ -15,27 +60,8 @@ function adesetValue2(elem) {
           $(element).removeAttr("selected");
         }
       });
-    //get selected option
-    var selected_option = $('select[name="billing_state"]')
-      .find("option:selected")
-      .val();
-    document.querySelector("#billing_city").value = selected_option;
-    //form name="checkout" input name billing_city
-    //custom
-    document.querySelector(
-      'form[name="checkout"] input[name="billing_city"]'
-    ).value = selected_option;
-    //state
-    if (
-      document.querySelector(
-        'form[name="checkout"] input[name="billing_state"]'
-      )
-    ) {
-      document.querySelector(
-        'form[name="checkout"] input[name="billing_state"]'
-      ).value = selected_option;
-      //custom
-    }
+    //update selected option
+    adesetWooInputValues();
     $(document.body).trigger("update_checkout");
   });
 }
@@ -155,5 +181,6 @@ jQuery(document).ready(function ($) {
       var lga = "";
       do_ade_calculation(state, lga);
     }
+    adesetWooInputValues();
   }, 1000);
 });

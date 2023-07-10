@@ -4,9 +4,9 @@ Tags: ade custom shipping, woocommerce shipping, custom shipping, ade woocommerc
 Author URI: https://adeleyeayodeji.com/
 Author: Adeleye Ayodeji
 Requires at least: 3.6.0
-Requires PHP: 5.5
+Requires PHP: 7.0
 Tested up to: 6.2
-Stable tag: 4.0.8
+Stable tag: 4.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,14 @@ Configure your shipping options in the plugin settings within WooCommerce.
 None at the moment.
 
 == Changelog ==
+
+= 4.1.0 =
+
+Fix bugs
+
+= 4.0.9 =
+
+Updated ReadMe.md
 
 = 4.0.8 =
 
