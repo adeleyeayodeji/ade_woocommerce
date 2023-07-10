@@ -23,6 +23,14 @@ Key features include:
 - Seamless integration with WooCommerce
 - User-friendly interface for easy setup and customization
 
+### Recent Reviews
+
+> "Plugin is what i have been looking for. I am so glad i stumbled upon it. The author was also kind to guide me through installation process. I will be back to purchase more license for more stores" - <a href="https://wordpress.org/support/topic/best-plugin-for-nigeria-location/">@wmatechjunkies</a>
+
+> "Ade Custom Shipping plugin helped solve my shipping issues with the local government fetch on my website. This is a must-have plugin for all e-commerce platforms in Nigeria" - <a href="https://wordpress.org/support/topic/highly-recommended-plugin-34/">@clinzho1996</a>
+
+> "The plugin is great. I bought the premium and it's worth it." - <a href="https://wordpress.org/support/topic/nice-plugin-4946/">@abasiofiok54</a>
+
 ### Video Tutorial
 
 [youtube https://www.youtube.com/watch?v=VIXxb8ub9FM]
