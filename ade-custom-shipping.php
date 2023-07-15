@@ -6,7 +6,7 @@
  * Author: Adeleye Ayodeji
  * Author URI: https://adeleyeayodeji.com
  * Description: Add shipping zones 3 levels deep for ecommerce.
- * Version: 4.1.0
+ * Version: 4.1.1
  * License: GPL2
  * License URL: http://www.gnu.org/licenses/gpl-2.0.txt
  */
@@ -114,8 +114,8 @@ add_action("wp_head", function () {
         // enqueue_script as param
 ?>
         <script>
-          var ade_billing_state = '<?php echo $dd1[1]; ?>';
-          var ade_billing_city = '<?php echo $dd1[0]; ?>';
+          var ade_billing_state = '<?php echo isset($dd1[1]) ? $dd1[1] : ''; ?>';
+          var ade_billing_city = '<?php echo isset($dd1[0]) ? $dd1[0] : ''; ?>';
         </script>
       <?php
       } else {
