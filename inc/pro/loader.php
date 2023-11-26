@@ -1,7 +1,8 @@
 <?php
 // add basic plugin security.
 defined('ABSPATH') || exit;
-if (!in_array('ade-custom-shipping-premium/ade-custom-shipping-premium.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+$active_plugins = implode(',', apply_filters('active_plugins', get_option('active_plugins')));
+if (strpos($active_plugins, 'ade-custom-shipping-premium.php') === false) {
     // adding to the menu
     function _ade_custom_shipping_pro()
     {

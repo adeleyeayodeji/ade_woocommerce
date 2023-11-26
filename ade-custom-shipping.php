@@ -6,7 +6,7 @@
  * Author: Adeleye Ayodeji
  * Author URI: https://adeleyeayodeji.com
  * Description: Add shipping zones 3 levels deep for ecommerce.
- * Version: 4.1.2
+ * Version: 4.1.3
  * License: GPL2
  * License URL: http://www.gnu.org/licenses/gpl-2.0.txt
  */
@@ -23,14 +23,22 @@ require_once plugin_dir_path(ADE_CUSTOM_PLGUN_FILE) . 'inc/plugin_path.php';
 
 function ade_custom_shipping_page_link($links)
 {
+  $active_plugins = implode(',', apply_filters('active_plugins', get_option('active_plugins')));
+  if (strpos($active_plugins, 'ade-custom-shipping-premium.php') === false) {
+    $links[] = '<a href="' .
+      admin_url('admin.php?page=ade-custom-shipping') .
+      '"><b>' . __('Enable LGA editor') . '</b></a>';
+  } else {
+    $links[] = '<a href="' .
+      admin_url('admin.php?page=ade-custom-shipping-premium') .
+      '"><b>' . __('Go to Editor') . '</b></a>';
+  }
   $links[] = '<a href="' .
     admin_url('admin.php?page=wc-settings&tab=shipping&zone_id=new') .
     '">' . __('Go to Shipping') . '</a>';
-  $links[] = '<a href="' .
-    admin_url(!in_array('ade-custom-shipping-premium/ade-custom-shipping-premium.php', apply_filters('active_plugins', get_option('active_plugins'))) ? 'admin.php?page=ade-custom-shipping' : 'admin.php?page=ade-custom-shipping-premium') .
-    '">' . __(!in_array('ade-custom-shipping-premium/ade-custom-shipping-premium.php', apply_filters('active_plugins', get_option('active_plugins'))) ? '<b>Enable LGA editor</b>' : 'Go to Editor') . '</a>';
   return $links;
 }
+
 function ade_custom_js()
 {
   wp_enqueue_script(
