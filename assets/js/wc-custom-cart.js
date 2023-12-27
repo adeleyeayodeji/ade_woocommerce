@@ -70,6 +70,14 @@ function initCartArea() {
         placeholder: "Select State",
         allowClear: true
       });
+
+      //check if ade_state_select has selected option
+      if ($(".ade_state_select option:selected").val()) {
+        setTimeout(() => {
+          //trigger change
+          $(".ade_state_select").trigger("change");
+        }, 500);
+      }
     }
     $('select[name="ade_custom_shipping_state"]').change(function (e) {
       e.preventDefault();
@@ -94,12 +102,28 @@ function initCartArea() {
         $('select[name="ade_custom_shipping_lga"]').select2({
           placeholder: "Select City"
         });
+
+        //check if select[name="ade_custom_shipping_lga"] has selected option
+        if ($('select[name="ade_custom_shipping_lga"] option:selected').val()) {
+          setTimeout(() => {
+            //trigger change
+            $('select[name="ade_custom_shipping_lga"]').trigger("change");
+          }, 500);
+        }
       } else {
         $('select[name="ade_custom_shipping_lga"]').html(lga);
         //update select2
         $('select[name="ade_custom_shipping_lga"]').select2({
           placeholder: "Select City"
         });
+
+        //check if select[name="ade_custom_shipping_lga"] has selected option
+        if ($('select[name="ade_custom_shipping_lga"] option:selected').val()) {
+          setTimeout(() => {
+            //trigger change
+            $('select[name="ade_custom_shipping_lga"]').trigger("change");
+          }, 500);
+        }
       }
     });
     //checking

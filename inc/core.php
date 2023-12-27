@@ -11,8 +11,9 @@ class AdeCustomSHipping
         //More function 
         self::$json = unserialize(get_option("ade_custom_ng"));
         self::$json_gh = unserialize(get_option("ade_custom_gh"));
-        add_filter('woocommerce_states',  array(__CLASS__, 'ade_custom_shipping'));
-        add_filter('woocommerce_states', array(__CLASS__, 'ade_custom_shipping_gh'));
+        add_filter('woocommerce_states',  array(__CLASS__, 'ade_custom_shipping_general'), 997);
+        add_filter('woocommerce_states',  array(__CLASS__, 'ade_custom_shipping'), 9999);
+        add_filter('woocommerce_states', array(__CLASS__, 'ade_custom_shipping_gh'), 998);
         //wc settings
         add_filter('woocommerce_general_settings', array(self::class, 'wcsettingsarea'), 10, 1);
     }
@@ -96,6 +97,46 @@ class AdeCustomSHipping
         $states['GH'] = $map;
 
         return $states;
+    }
+
+    /**
+     * General City Setup
+     */
+    public static function ade_custom_shipping_general($states)
+    {
+        try {
+            //skip NG and GH
+            if (array_key_exists("NG", $states)) {
+                //return $states
+                return $states;
+            }
+
+            if (array_key_exists("GH", $states)) {
+                //return $states
+                return $states;
+            }
+
+            //check if ade_custom_shipping_general is set in option
+            $ade_custom_shipping_general = get_option("ade_custom_shipping_general", []);
+            if (empty($ade_custom_shipping_general)) {
+                return $states;
+            }
+
+            $ade_custom_shipping_general = unserialize($ade_custom_shipping_general);
+            if (empty($ade_custom_shipping_general)) {
+                return $states;
+            }
+
+            //loop through
+            foreach ($ade_custom_shipping_general as $key => $value) {
+                $states[$key] = $value;
+            }
+
+            return $states;
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return $states;
+        }
     }
 
     public static function wcsettingsarea($settings)

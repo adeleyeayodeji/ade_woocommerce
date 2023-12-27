@@ -131,12 +131,27 @@ jQuery(document).ready(function ($) {
       $('select[name="ade_custom_shipping_lga2"]').select2({
         placeholder: "Select City"
       });
+      //check if select[name="ade_custom_shipping_lga2"] has selected option
+      if ($('select[name="ade_custom_shipping_lga2"] option:selected').val()) {
+        setTimeout(() => {
+          //trigger change
+          $('select[name="ade_custom_shipping_lga2"]').trigger("change");
+        }, 500);
+      }
     } else {
       $('select[name="ade_custom_shipping_lga2"]').html(lga);
       //update select2
       $('select[name="ade_custom_shipping_lga2"]').select2({
         placeholder: "Select City"
       });
+
+      //check if select[name="ade_custom_shipping_lga2"] has selected option
+      if ($('select[name="ade_custom_shipping_lga2"] option:selected').val()) {
+        setTimeout(() => {
+          //trigger change
+          $('select[name="ade_custom_shipping_lga2"]').trigger("change");
+        }, 500);
+      }
     }
 
     //recalculate
