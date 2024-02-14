@@ -1,12 +1,12 @@
 === Ade Custom Shipping ===
-Contributors: Adeleye Ayodeji, biggidroid
+Contributors: Adeleye Ayodeji, biggidroid, raphaelosanmi
 Tags: ade custom shipping, woocommerce shipping, custom shipping, ade woocommerce, woocommerce, adeleyeayodeji, shipping, shipping calculator, nigeria shipping
 Author URI: https://adeleyeayodeji.com/
 Author: Adeleye Ayodeji
 Requires at least: 3.6.0
 Requires PHP: 7.0
 Tested up to: 6.4
-Stable tag: 4.1.4
+Stable tag: 4.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,10 @@ Configure your shipping options in the plugin settings within WooCommerce.
 None at the moment.
 
 == Changelog ==
+
+= 4.1.4 =
+
+- Updated README.md
 
 = 4.1.4 =
 
