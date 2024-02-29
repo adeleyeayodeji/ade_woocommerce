@@ -6,7 +6,7 @@ Author: Adeleye Ayodeji
 Requires at least: 3.6.0
 Requires PHP: 7.0
 Tested up to: 6.4
-Stable tag: 4.1.5
+Stable tag: 4.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,10 @@ Configure your shipping options in the plugin settings within WooCommerce.
 None at the moment.
 
 == Changelog ==
+
+= 4.1.6 =
+
+- Added support for weight based shipping location selection.
 
 = 4.1.4 =
 

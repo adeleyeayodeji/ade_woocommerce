@@ -6,17 +6,19 @@
  * Author: Adeleye Ayodeji
  * Author URI: https://adeleyeayodeji.com
  * Description: Add shipping zones 3 levels deep for ecommerce.
- * Version: 4.1.5
+ * Version: 4.1.6
  * License: GPL2
  * License URL: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 // add basic plugin security.
-defined('ABSPATH') || exit;
+defined('ABSPATH') || exit('Direct script access denied.');
 
 if (!defined('ADE_CUSTOM_PLGUN_FILE')) {
   define('ADE_CUSTOM_PLGUN_FILE', __FILE__);
 }
+//ade custom shipping version
+define('ADE_CUSTOM_SHIPPING_VERSION', time());
 //core
 require_once plugin_dir_path(ADE_CUSTOM_PLGUN_FILE) . 'inc/core.php';
 require_once plugin_dir_path(ADE_CUSTOM_PLGUN_FILE) . 'inc/plugin_path.php';
@@ -44,7 +46,8 @@ function ade_custom_js()
   wp_enqueue_script(
     'ade-custom-js', // name your script so that you can attach other scripts and de-register, etc.
     plugin_dir_url(ADE_CUSTOM_PLGUN_FILE) . 'assets/js/ade-custom-js.js', // this is the location of your script file
-    array('jquery') // this array lists the scripts upon which your script depends
+    array('jquery'), // this array lists the scripts upon which your script depends
+    ADE_CUSTOM_SHIPPING_VERSION
   );
   //Localise
   $ade_custom_params = array(
@@ -53,7 +56,7 @@ function ade_custom_js()
   );
   wp_localize_script('ade-custom-js', 'ade_custom_params', $ade_custom_params);
   //Add admin styles
-  wp_register_style('ade_custom_wp_admin_css', plugin_dir_url(ADE_CUSTOM_PLGUN_FILE) . 'assets/css/style.css', false, '1.0.0');
+  wp_register_style('ade_custom_wp_admin_css', plugin_dir_url(ADE_CUSTOM_PLGUN_FILE) . 'assets/css/style.css', false, ADE_CUSTOM_SHIPPING_VERSION);
   wp_enqueue_style('ade_custom_wp_admin_css');
 }
 add_action('admin_enqueue_scripts', 'ade_custom_js');
@@ -72,14 +75,14 @@ add_action('wp_enqueue_scripts', function () {
             'ade-wc-custom-cart-js', // name your script so that you can attach other scripts and de-register, etc.
             plugin_dir_url(ADE_CUSTOM_PLGUN_FILE) . 'assets/js/wc-custom-cart.js', // this is the location of your script file
             array('jquery'), // this array lists the scripts upon which your script depends
-            time()
+            ADE_CUSTOM_SHIPPING_VERSION
           );
           //checkout
           wp_enqueue_script(
             'ade-wc-custom-checkout-js', // name your script so that you can attach other scripts and de-register, etc.
             plugin_dir_url(ADE_CUSTOM_PLGUN_FILE) . 'assets/js/wc-custom-checkout.js', // this is the location of your script file
             array('jquery'), // this array lists the scripts upon which your script depends
-            time()
+            ADE_CUSTOM_SHIPPING_VERSION
           );
         }
       }

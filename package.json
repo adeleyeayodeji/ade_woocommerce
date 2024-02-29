@@ -1,0 +1,27 @@
+{
+  "name": "ade-custom-shipping",
+  "version": "4.1.5",
+  "description": "Ade Custom Shipping is a powerful plugin that allows you to create custom shipping zones for your WooCommerce store. With the ability to add up to three levels of shipping zones, you can easily set shipping rates based on regions, offer free shipping on orders over a certain amount, set up tiered shipping rates, and restrict shipping to specific countries or regions.",
+  "author": "Ade Custom Shipping",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "wp-scripts build src/ade-core.js",
+    "check-engines": "wp-scripts check-engines",
+    "check-licenses": "wp-scripts check-licenses",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "start": "wp-scripts start src/ade-core.js"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^26.13.0"
+  },
+  "dependencies": {
+    "@wordpress/element": "^5.19.0",
+    "react": "^18.2.0"
+  }
+}
