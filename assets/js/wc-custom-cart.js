@@ -51,7 +51,8 @@ function initCartArea() {
     });
     //array unique
     var unique_state = [...new Set(data_options.state)];
-    var state_options = "";
+    //set placeholder for state_options
+    var state_options = "<option value=''>Select State</option>";
     $.each(unique_state, function (indexInArray, valueOfElement) {
       state_options += `<option value="${valueOfElement}">${valueOfElement}</option>`;
     });
@@ -82,7 +83,8 @@ function initCartArea() {
     $('select[name="ade_custom_shipping_state"]').change(function (e) {
       e.preventDefault();
       var state = $(this).val();
-      var lga = "";
+      //set placeholder for lga
+      var lga = "<option value=''>Select Town / City</option>";
       $.each(data_options.city, function (indexInArray, valueOfElement) {
         if (valueOfElement.state === state) {
           lga += `<option value="${valueOfElement.lga}">${valueOfElement.lga}</option>`;
@@ -92,7 +94,7 @@ function initCartArea() {
       if (!$("#ade_custom_shipping_lga").length) {
         $("#ade_custom_shipping_state").after(`
         <p class="form-row validate-required address-field form-row-wide" id="ade_custom_shipping_lga" >
-          <label for="ade_custom_shipping_lga">City</label>
+          <label for="ade_custom_shipping_lga">Town / City</label>
           <select name="ade_custom_shipping_lga" class="lga_select" style="    width: 100% !important;" onchange="adesetValue(this)">
               ${lga}
           </select>
@@ -100,7 +102,7 @@ function initCartArea() {
       `);
         //select2 init
         $('select[name="ade_custom_shipping_lga"]').select2({
-          placeholder: "Select City"
+          placeholder: "Select Town / City"
         });
 
         //check if select[name="ade_custom_shipping_lga"] has selected option
@@ -114,7 +116,7 @@ function initCartArea() {
         $('select[name="ade_custom_shipping_lga"]').html(lga);
         //update select2
         $('select[name="ade_custom_shipping_lga"]').select2({
-          placeholder: "Select City"
+          placeholder: "Select Town / City"
         });
 
         //check if select[name="ade_custom_shipping_lga"] has selected option

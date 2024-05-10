@@ -92,9 +92,7 @@ jQuery(document).ready(function ($) {
   var unique_state = [...new Set(data_options.state)];
   var state_options = "";
   $.each(unique_state, function (indexInArray, valueOfElement) {
-    state_options += `<option value="${valueOfElement}" ${
-      valueOfElement == ade_billing_state ? "selected" : ""
-    }>${valueOfElement}</option>`;
+    state_options += `<option value="${valueOfElement}">${valueOfElement}</option>`;
   });
   $("#billing_country_field").after(`
         <p class="form-row address-field validate-required validate-state form-row-wide woocommerce-validated" id="ade_custom_shipping_state2">
@@ -108,18 +106,19 @@ jQuery(document).ready(function ($) {
       `);
 
   let do_ade_calculation = (state, lga) => {
+    //set placeholder for lga
+    lga = `<option value="">Select Town / City</option>`;
+    //loop through data_options.city
     $.each(data_options.city, function (indexInArray, valueOfElement) {
       if (valueOfElement.state === state) {
-        lga += `<option value="${valueOfElement.lga}" ${
-          valueOfElement.lga == ade_billing_city ? "selected" : ""
-        }>${valueOfElement.lga}</option>`;
+        lga += `<option value="${valueOfElement.lga}">${valueOfElement.lga}</option>`;
       }
     });
     //check if ade_custom_shipping_lga2 element exists
     if (!$("#ade_custom_shipping_lga2").length) {
       $("#ade_custom_shipping_state2").after(`
         <p class="form-row address-field validate-required validate-state form-row-wide woocommerce-validated" id="ade_custom_shipping_lga2" >
-          <label for="ade_custom_shipping_lga2">City <abbr class="required" title="required">*</abbr></label>
+          <label for="ade_custom_shipping_lga2">Town / City <abbr class="required" title="required">*</abbr></label>
           <span class="woocommerce-input-wrapper">
             <select name="ade_custom_shipping_lga2" class="lga_select" style="    width: 100% !important;" onchange="adesetValue2(this)">
                 ${lga}
@@ -129,7 +128,7 @@ jQuery(document).ready(function ($) {
       `);
       //select2 init
       $('select[name="ade_custom_shipping_lga2"]').select2({
-        placeholder: "Select City"
+        placeholder: "Select Town / City"
       });
       //check if select[name="ade_custom_shipping_lga2"] has selected option
       if ($('select[name="ade_custom_shipping_lga2"] option:selected').val()) {
@@ -142,7 +141,7 @@ jQuery(document).ready(function ($) {
       $('select[name="ade_custom_shipping_lga2"]').html(lga);
       //update select2
       $('select[name="ade_custom_shipping_lga2"]').select2({
-        placeholder: "Select City"
+        placeholder: "Select Town / City"
       });
 
       //check if select[name="ade_custom_shipping_lga2"] has selected option
