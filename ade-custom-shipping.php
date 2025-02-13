@@ -9,6 +9,7 @@
  * Version: 4.1.8
  * License: GPL2
  * License URL: http://www.gnu.org/licenses/gpl-2.0.txt
+ * Requires Plugins: woocommerce
  */
 
 // add basic plugin security.
@@ -19,6 +20,26 @@ if (!defined('ADE_CUSTOM_PLGUN_FILE')) {
 }
 //ade custom shipping version
 define('ADE_CUSTOM_SHIPPING_VERSION', time());
+
+//check if woocommerce is active
+function ade_wc_active_check()
+{
+  //check if woocommerce is active
+  $plugins = (array) get_option('active_plugins', array());
+  return in_array('woocommerce/woocommerce.php', $plugins) || array_key_exists('woocommerce/woocommerce.php', $plugins);
+}
+
+if (!ade_wc_active_check()) {
+  add_action('admin_notices', function () {
+    $class = 'notice notice-error';
+    $message = __('Ade Custom Shipping requires WooCommerce to be installed and activated.', 'terminal-africa');
+    $link = admin_url('plugin-install.php?s=woocommerce&tab=search&type=term');
+
+    printf('<div class="%1$s"><p>%2$s <a href="%3$s">Install</a></p></div>', esc_attr($class), esc_html($message), esc_url($link));
+  });
+  return;
+}
+
 //core
 require_once plugin_dir_path(ADE_CUSTOM_PLGUN_FILE) . 'inc/core.php';
 require_once plugin_dir_path(ADE_CUSTOM_PLGUN_FILE) . 'inc/plugin_path.php';
