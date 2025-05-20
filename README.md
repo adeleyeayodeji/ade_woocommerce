@@ -5,8 +5,8 @@ Author URI: https://adeleyeayodeji.com/
 Author: Adeleye Ayodeji
 Requires at least: 3.6.0
 Requires PHP: 7.0
-Tested up to: 6.7
-Stable tag: 4.1.8
+Tested up to: 6.8
+Stable tag: 4.1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,10 @@ Configure your shipping options in the plugin settings within WooCommerce.
 None at the moment.
 
 == Changelog ==
+
+= 4.1.9 =
+
+- Added support for latest version of WooCommerce.
 
 = 4.1.6 =
 
