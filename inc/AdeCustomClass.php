@@ -26,6 +26,34 @@ class AdeCustomClass
     }
 
     /**
+     * Get formatted states
+     * 
+     * @since 4.1.5
+     */
+    public function get_formatted_states()
+    {
+        $states = WC()->countries->get_states('NG');
+        //check if states is not empty
+        if (empty($states)) {
+            return array();
+        }
+        $formatted_states = array();
+        //loop through states
+        foreach ($states as $state => $city) {
+            //explode the city by comma
+            $city_exploded = explode(',', $city);
+            //get the last item
+            $last_item = end($city_exploded);
+            //remove the first whitespace
+            $last_item = ltrim($last_item);
+            //set the state
+            $formatted_states[$last_item] = $last_item;
+        }
+        //return formatted states
+        return $formatted_states;
+    }
+
+    /**
      * Enqueue admin script
      * 
      * @since 4.1.5
@@ -46,6 +74,7 @@ class AdeCustomClass
             'ajax_url' => admin_url('admin-ajax.php'),
             //Nigeria states
             'woocommerce_states' => WC()->countries->get_states('NG'),
+            'woocommerce_formatted_states' => $this->get_formatted_states(),
         );
         wp_localize_script('ade-custom-build-js', 'ade_custom_params', $ade_custom_params);
         //Add admin styles

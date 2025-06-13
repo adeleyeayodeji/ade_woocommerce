@@ -20,4 +20,15 @@
   gap: 5px;
 }
 
+.ade-custom-shipping-woocommerce-selections-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ade-custom-shipping-woocommerce-selections-wrapper .select2-container {
+  width: 100% !important;
+  max-width: 600px !important;
+}
+
 /*# sourceMappingURL=ade-core.css.map*/

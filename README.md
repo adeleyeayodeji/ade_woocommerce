@@ -6,7 +6,7 @@ Author: Adeleye Ayodeji
 Requires at least: 3.6.0
 Requires PHP: 7.0
 Tested up to: 6.8
-Stable tag: 4.1.9
+Stable tag: 4.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,13 @@ Configure your shipping options in the plugin settings within WooCommerce.
 None at the moment.
 
 == Changelog ==
+
+= 4.2.0 =
+
+- Added support for latest version of WooCommerce.
+- Added new action to remove all cities.
+- Added new action to append to existing cities.
+- Added new action to replace existing cities.
 
 = 4.1.9 =
 

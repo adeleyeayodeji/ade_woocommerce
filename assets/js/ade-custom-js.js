@@ -52,11 +52,16 @@ jQuery(document).ready(function ($) {
         <tr valign="top" class="">
 				<th scope="row" class="titledesc">
 					<label for="zone_name">
-						Ade Custom Shipping Selections
+						Custom Selections
 					</label>
+          <p class="wc-shipping-zone-help-text">
+            Select all cities within a state
+          </p>
 				</th>
 				<td class="forminp">
-					<div class="ade-custom-shipping-selections" id="ade-custom-shipping-selections">Loading...</div>
+					<div class="ade-custom-shipping-wc-selections" id="ade-custom-shipping-wc-selections" style="display: flex; flex-direction: column; gap: 10px;">
+            Loading selections...
+          </div>
 				</td>
 			</tr>
         `
@@ -115,5 +120,5 @@ jQuery(document).ready(function ($) {
     add_ade_selection_weight_based();
   }, 500);
 
-  // update_wc_shipping_fields();
+  update_wc_shipping_fields();
 });

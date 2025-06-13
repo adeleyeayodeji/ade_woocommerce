@@ -243,6 +243,230 @@ class AdeCustomShippingSelections extends (react__WEBPACK_IMPORTED_MODULE_0___de
 
 /***/ }),
 
+/***/ "./src/components/AdeWooCommerceShippingSelections.jsx":
+/*!*************************************************************!*\
+  !*** ./src/components/AdeWooCommerceShippingSelections.jsx ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AdeWooCommerceShippingSelections)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_html_entities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/html-entities */ "@wordpress/html-entities");
+/* harmony import */ var _wordpress_html_entities__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_html_entities__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+
+/**
+ * ADE Custom Shipping Selections
+ *
+ * WooCommerce Shipping Selections
+ *
+ * @returns {JSX.Element}
+ */
+function AdeWooCommerceShippingSelections() {
+  const [isModalOpen, setIsModalOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [selectedValues, setSelectedValues] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [selectedAction, setSelectedAction] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("replace");
+
+  /**
+   * Formatted states
+   *
+   * @type {Object}
+   */
+  var formatted_states = Object.keys(ade_custom_params.woocommerce_formatted_states).map(state => {
+    return {
+      label: state,
+      value: state
+    };
+  });
+
+  /**
+   * Recursively transform labels
+   *
+   * @param {Object} node
+   * @param {Function} transform
+   * @returns {Object}
+   */
+  const recursivelyTransformLabels = (node, transform) => {
+    if (Array.isArray(node)) {
+      return node.map(element => {
+        return recursivelyTransformLabels(element, transform);
+      });
+    }
+    if (node.label) {
+      node.label = transform(node.label);
+    }
+    if (node.children) {
+      node.children = recursivelyTransformLabels(node.children, transform);
+    }
+    return node;
+  };
+
+  /**
+   * Init select2
+   *
+   */
+  const initSelect2 = () => {
+    //init select2
+    jQuery("#ade-custom-shipping-woocommerce-selections").select2({
+      width: "resolve",
+      placeholder: "Select a state or action",
+      allowClear: true
+    });
+
+    //on change
+    jQuery("#ade-custom-shipping-woocommerce-selections").on("change", e => {
+      handleChange(e);
+    });
+  };
+
+  /**
+   * Handle change
+   *
+   * @param {Object} e
+   */
+  const handleChange = e => {
+    var _recursivelyTransform;
+    const selectedValue = e.target.value;
+    const allOptions = (_recursivelyTransform = recursivelyTransformLabels(window.shippingZoneMethodsLocalizeScript?.region_options, _wordpress_html_entities__WEBPACK_IMPORTED_MODULE_1__.decodeEntities)) !== null && _recursivelyTransform !== void 0 ? _recursivelyTransform : [];
+
+    //if selectedValue is remove-all, set selectedValues to empty array
+    if (selectedValue === "remove-all") {
+      setSelectedValues([]);
+      setIsModalOpen(true);
+      return;
+    }
+
+    //get value where object has label Africa
+    const africa = allOptions.find(option => option.label === "Africa");
+
+    //get value with label Nigeria
+    const nigeria = africa.children.find(option => option.label === "Nigeria");
+
+    //get value with string position of Abia
+    const selectedOptions = nigeria.children.filter(option => option.value.includes(selectedValue));
+
+    //extract value from selectedOptions
+    const selectedValues = selectedOptions.map(option => option.value);
+
+    //set selectedValues
+    setSelectedValues(selectedValues);
+
+    //open modal
+    setIsModalOpen(true);
+  };
+
+  /**
+   * Close modal
+   *
+   */
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  /**
+   * Reload page
+   *
+   */
+  const reloadPage = () => {
+    var _window$shippingZoneM;
+    //set isLoading to true
+    setIsLoading(true);
+    let initialValues = (_window$shippingZoneM = window.shippingZoneMethodsLocalizeScript?.locations) !== null && _window$shippingZoneM !== void 0 ? _window$shippingZoneM : [];
+
+    //update initialValues with selectedValues
+    if (selectedAction === "append") {
+      initialValues.push(...selectedValues);
+    } else {
+      initialValues = selectedValues;
+    }
+
+    //set selectedValues
+    document.body.dispatchEvent(new CustomEvent("wc_region_picker_update", {
+      detail: initialValues
+    }));
+
+    //click on the save button .wc-shipping-zone-method-save
+    const saveButton = document.querySelector("button.wc-shipping-zone-method-save");
+    if (saveButton) {
+      saveButton.click();
+    }
+
+    //wait for 2 seconds
+    setTimeout(() => {
+      //reload page
+      window.location.reload();
+    }, 2000);
+  };
+
+  /**
+   * On mounted
+   *
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    //init select2
+    initSelect2();
+  }, []);
+
+  /**
+   * Render
+   *
+   */
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ade-custom-shipping-woocommerce-selections-wrapper"
+  }, isModalOpen && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Modal, {
+    title: "Page Reload Required",
+    onRequestClose: closeModal
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    style: {
+      marginTop: 0
+    }
+  }, "A page reload is required to apply the changes.", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("br", null), "Please select an action to proceed."), selectedValues.length > 0 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("select", {
+    value: selectedAction,
+    style: {
+      width: "100%",
+      marginBottom: "20px"
+    },
+    onChange: e => {
+      setSelectedAction(e.target.value);
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "append"
+  }, "Append to existing cities"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "replace"
+  }, "Replace existing cities")), isLoading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, null) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    onClick: reloadPage,
+    isPrimary: true
+  }, "Reload Page")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("select", {
+    id: "ade-custom-shipping-woocommerce-selections",
+    style: {
+      width: "100%",
+      maxWidth: "600px"
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: ""
+  }, "Select a state or action"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "remove-all"
+  }, "Remove all cities - action"), formatted_states.map(state => {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+      value: state.value
+    }, state.label);
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("small", {
+    className: "wc-shipping-zone-help-text"
+  }, "Select all cities within the state.", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("br", null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, "Note:"), " You can always leave this field empty"));
+}
+
+/***/ }),
+
 /***/ "./src/scss/styles.scss":
 /*!******************************!*\
   !*** ./src/scss/styles.scss ***!
@@ -255,16 +479,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "react":
-/*!************************!*\
-  !*** external "React" ***!
-  \************************/
-/***/ ((module) => {
-
-module.exports = window["React"];
-
-/***/ }),
-
 /***/ "@wordpress/components":
 /*!************************************!*\
   !*** external ["wp","components"] ***!
@@ -272,6 +486,26 @@ module.exports = window["React"];
 /***/ ((module) => {
 
 module.exports = window["wp"]["components"];
+
+/***/ }),
+
+/***/ "@wordpress/html-entities":
+/*!**************************************!*\
+  !*** external ["wp","htmlEntities"] ***!
+  \**************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["htmlEntities"];
+
+/***/ }),
+
+/***/ "react":
+/*!************************!*\
+  !*** external "React" ***!
+  \************************/
+/***/ ((module) => {
+
+module.exports = window["React"];
 
 /***/ })
 
@@ -344,7 +578,7 @@ module.exports = window["wp"]["components"];
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
 /*!*************************!*\
   !*** ./src/ade-core.js ***!
@@ -353,6 +587,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_AdeCustomShippingSelections__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/AdeCustomShippingSelections */ "./src/components/AdeCustomShippingSelections.js");
+/* harmony import */ var _components_AdeWooCommerceShippingSelections__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/AdeWooCommerceShippingSelections */ "./src/components/AdeWooCommerceShippingSelections.jsx");
 
 /**
  * Init React App
@@ -360,7 +595,12 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+
 jQuery(document).ready(function ($) {
+  /**
+   * Init Ade Custom Shipping Selections for weight based shipping zone settings
+   *
+   */
   let ade_custom_shipping_selections = () => {
     //check if element exist #ade-custom-shipping-selections
     if ($("#ade-custom-shipping-selections").length) {
@@ -376,9 +616,30 @@ jQuery(document).ready(function ($) {
     }
   };
 
+  /**
+   * Init Ade Custom Shipping Selections for woocommerce shipping zone settings
+   *
+   */
+  let ade_custom_shipping_fields_for_wc_core = () => {
+    //check if element exist #ade-custom-shipping-wc-selections
+    if ($("#ade-custom-shipping-wc-selections").length) {
+      //get the element
+      let element = document.getElementById("ade-custom-shipping-wc-selections");
+      //check if element has inner element
+      if (!element.hasChildNodes()) {
+        //exist
+        return;
+      }
+      //render the react app
+      ReactDOM.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_AdeWooCommerceShippingSelections__WEBPACK_IMPORTED_MODULE_2__["default"], null), element);
+    }
+  };
+
   //set interval
   setInterval(() => {
     ade_custom_shipping_selections();
+    //init woocommerce shipping zone settings
+    ade_custom_shipping_fields_for_wc_core();
   }, 1000);
 });
 })();
