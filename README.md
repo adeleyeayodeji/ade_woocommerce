@@ -6,7 +6,7 @@ Author: Adeleye Ayodeji
 Requires at least: 3.6.0
 Requires PHP: 7.0
 Tested up to: 6.8
-Stable tag: 4.2.0
+Stable tag: 4.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,10 @@ Integrate Ade Custom Shipping to your WooCommerce website and take control of yo
 == Description ==
 
 Ade Custom Shipping is a powerful plugin that allows you to create custom shipping zones for your WooCommerce store. With the ability to add up to three levels of shipping zones, you can easily set shipping rates based on regions, offer free shipping on orders over a certain amount, set up tiered shipping rates, and restrict shipping to specific countries or regions.
+
+New Update:
+
+- Ade Custom Shipping now supports WooCommerce block checkout and WooCommerce classic checkout.
 
 Key features include:
 
@@ -52,6 +56,10 @@ Configure your shipping options in the plugin settings within WooCommerce.
 None at the moment.
 
 == Changelog ==
+
+= 4.2.1 =
+
+- Fixed bug with state and city selection on woocommerce block checkout.
 
 = 4.2.0 =
 

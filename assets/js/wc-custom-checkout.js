@@ -66,20 +66,65 @@ function adesetValue2(elem) {
   });
 }
 
+/**
+ * Ade Custom Shipping | adesetValueBlock
+ * @param {element} elem
+ * @param {string} state
+ * @package Ade Custom Shipping
+ */
+window.adesetValueBlock = (elem) => {
+  jQuery(document).ready(function ($) {
+    //get state
+    var ade_state_block = $(".ade-custom-shipping-state").val();
+    var lga = $(elem).val();
+    var finaltext = lga + ", " + ade_state_block;
+    //set value to city input
+    $("input#shipping-city").val(finaltext);
+    //find select[name='billing_state'] option with value and set it to selected
+    $("select#shipping-state")
+      .find("option")
+      .each(function (index, element) {
+        if ($(element).val() == finaltext) {
+          //set selected
+          $(element).attr("selected", "selected");
+          let element2 = document.querySelector("select#shipping-state");
+          element2.value = finaltext;
+          element2.dispatchEvent(new Event("change", { bubbles: true }));
+        } else {
+          $(element).removeAttr("selected");
+        }
+      });
+    //recalculate
+    $("select#shipping-state").trigger("change");
+    //recalculate
+    $(document.body).trigger("update_checkout");
+  });
+};
+
 jQuery(document).ready(function ($) {
   /**
    * Capture State Options
    * @param {element} elem
-   * @param {boolean} isBlock
+   * @param {string} selected_state
    *
    * @returns {mixed}
    */
-  let captureStateOptions = (elem, isBlock = false) => {
+  let captureStateOptions = (elem, selected_state = "") => {
     //initialize data_options
     var data_options = {
       state: ["Select State"],
       city: []
     };
+
+    //check if selected_state is not empty
+    if (selected_state != "") {
+      //split selected_state
+      var selected_state_split = selected_state.split(", ");
+      var selected_state_name = selected_state_split[1];
+    } else {
+      var selected_state_name = "";
+    }
+
     //get state options
     var wc_state_options = elem.find("option");
     wc_state_options.each(function (index, element) {
@@ -103,7 +148,7 @@ jQuery(document).ready(function ($) {
     var state_options = "";
     $.each(unique_state, function (indexInArray, valueOfElement) {
       state_options += `<option value="${valueOfElement}" ${
-        isBlock ? `data-alternate-values='[${valueOfElement}]'` : ""
+        selected_state_name == valueOfElement ? `selected` : ""
       }>${valueOfElement}</option>`;
     });
     //return state_options
@@ -223,6 +268,58 @@ jQuery(document).ready(function ($) {
   }, 1000);
 
   /**
+   * WooCommerce City Select Block Element
+   * @param {string} state
+   * @param {string} lga
+   * @returns {void}
+   * @description Update the city select block element
+   */
+  window.updateCitySelectBlockElement = (state, lga) => {
+    //check if element is not a string
+    if (typeof state !== "string" || state == "" || state == null) {
+      //return
+      return;
+    }
+
+    var blockShippingCity = $(
+      ".wc-block-components-text-input.wc-block-components-address-form__city"
+    );
+    //check if blockShippingCity exists
+    if (blockShippingCity.length > 0) {
+      //hide blockShippingCity
+      blockShippingCity.hide();
+
+      //set placeholder for lga
+      lga_block = `<option value="0">Select Town / City</option>`;
+      //loop through data_options.city
+      $.each(
+        window.default_state_options_2.city,
+        function (indexInArray, valueOfElement) {
+          if (valueOfElement.state === state) {
+            lga_block += `<option value="${valueOfElement.lga}">${valueOfElement.lga}</option>`;
+          }
+        }
+      );
+
+      //check if .ade-custom-shipping-city
+      if ($(".ade-custom-shipping-city").length > 0) {
+        $(".ade-custom-shipping-city").html(lga_block);
+        //return
+        return;
+      }
+
+      //add new select after blockShippingCity
+      blockShippingCity.after(`
+              <div class="wc-block-components-address-form__country wc-block-components-country-input ade-custom-shipping-city-container"><div class="wc-blocks-components-select"><div class="wc-blocks-components-select__container"><label for="shipping-country" class="wc-blocks-components-select__label">Town / City</label>
+              <select size="1" class="wc-blocks-components-select__select ade-custom-shipping-city" id="ade-custom-shipping-city" aria-invalid="false" autocomplete="address-level2" onchange="window.adesetValueBlock(this, '${state}')">
+                ${lga_block}
+              </select>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="wc-blocks-components-select__expand" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></div>
+            `);
+    }
+  };
+
+  /**
    * WooCommerce Block Checkout Filter
    *
    */
@@ -234,31 +331,59 @@ jQuery(document).ready(function ($) {
     var addressFormState = $(
       ".wc-block-components-address-form__state.wc-block-components-state-input"
     );
+    //get selected shipping-country
+    var shippingCountry = $("select#shipping-country")
+      .find("option:selected")
+      .val();
+
     //check if addressFormCity and addressFormState exist
-    if (addressFormCity.length > 0 && addressFormState.length > 0) {
+    if (
+      addressFormCity.length > 0 &&
+      addressFormState.length > 0 &&
+      shippingCountry == "NG"
+    ) {
       //also check if addressFormCity is after addressFormState
       if (addressFormCity.index() < addressFormState.index()) {
         //switch node position, move addressFormCity after addressFormState
         addressFormCity.insertAfter(addressFormState);
         // //get select id shipping-state
         var shippingState = $("select#shipping-state");
+        //get selected shipping-state
+        var shippingStateValue = shippingState.find("option:selected").val();
+
         //capture state options
-        var default_state_options_2 = captureStateOptions(shippingState);
+        window.default_state_options_2 = captureStateOptions(shippingState, "");
         //hide shippingState
-        shippingState.hide(() => {
-          //add new select after shippingState
-          shippingState.after(`
-         <select size="1" class="wc-blocks-components-select__select" id="ade-custom-shipping-state" aria-invalid="false" autocomplete="address-level1">
+        shippingState.hide();
+
+        //check if element exists with .ade-custom-shipping-state
+        if ($(".ade-custom-shipping-state").length > 0) {
+          //return false
+          return false;
+        }
+
+        //add new select after shippingState
+        shippingState.after(`
+         <select size="1" class="wc-blocks-components-select__select ade-custom-shipping-state" id="ade-custom-shipping-state" onchange="updateCitySelectBlockElement(this.value, '')" aria-invalid="false" autocomplete="address-level1">
               ${default_state_options_2.state}
           </select>
         `);
-        });
       }
+    } else {
+      //revert all changes
+      $(".ade-custom-shipping-city-container").remove();
+      $(".ade-custom-shipping-state").remove();
+      //show shippingState
+      $("select#shipping-state").show();
+      //show shippingCity
+      $(
+        ".wc-block-components-text-input.wc-block-components-address-form__city"
+      ).show();
     }
   };
 
   //set timeout to move addressFormCity
-  setTimeout(() => {
+  setInterval(() => {
     moveAddressFormCity();
-  }, 3000);
+  }, 500);
 });
